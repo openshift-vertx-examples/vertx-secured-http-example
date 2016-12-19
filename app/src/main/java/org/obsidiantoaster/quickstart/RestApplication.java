@@ -16,19 +16,15 @@
  */
 package org.obsidiantoaster.quickstart;
 
+import com.sun.org.apache.regexp.internal.RE;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.jwt.JWTAuth;
-import io.vertx.ext.auth.oauth2.AccessToken;
-import io.vertx.ext.auth.oauth2.OAuth2Auth;
-import io.vertx.ext.auth.oauth2.OAuth2ClientOptions;
-import io.vertx.ext.auth.oauth2.OAuth2FlowType;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.JWTAuthHandler;
-import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import org.obsidiantoaster.quickstart.service.Greeting;
 
 import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
@@ -43,17 +39,23 @@ public class RestApplication extends AbstractVerticle {
     // Create a router object.
     Router router = Router.router(vertx);
 
+    String REALM = System.getenv("REALM");
+    String PUBLIC_KEY = System.getenv("PUBLIC_KEY");
+    String AUTH_SERVER_URL = System.getenv("AUTH_SERVER_URL");
+    String RESOURCE = System.getenv("RESOURCE");
+    String CREDENTIALS = System.getenv("CREDENTIALS");
+
     // Configure the AuthHandler to process JWToken
     JWTAuthHandler jwtHandler = JWTAuthHandler.create(
             JWTAuth.create(vertx,new JsonObject(
                     "{\n" +
-                            "  \"realm\": \"master\",\n" +
-                            "  \"public-key\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjSLQrbpwNkpuNc+LxcrG711/oIsqUshISLWjXALgx6/L7NItNrPjJTwzqtWCTJrl0/eQLcPdi7UeZA1qjPGa1l+AIj+FnLyCOl7gm65xB3xUpRuGNe5mJ9a+ZtzprXOKhd0WRC8ydiMwyFxIQJPjt7ywlNvU0hZR1U3QboLRICadP5WPaoYNOaYmpkX34r+kegVfdga+1xqG6Ba5v2/9rRg74KxJubCQxcinbH7gVIYSyFQPP5OpBo14SuynFL1YhWDpgUhLz7gr60sG+RC5eC0zuvCRTELn+JquSogPUopuDej/Sd3T5VYHIBJ8P4x4MIz9/FDX8bOFwM73nHgL5wIDAQAB\",\n" +
-                            "  \"auth-server-url\": \"http://localhost:8180/auth\",\n" +
+                            "  \"realm\": "  + "\"" + REALM  + "\"" + ",\n" +
+                            "  \"public-key\": " + "\"" + PUBLIC_KEY + "\"" + ",\n" +
+                            "  \"auth-server-url\": "  + "\"" + AUTH_SERVER_URL + "\"" + ",\n" +
                             "  \"ssl-required\": \"external\",\n" +
-                            "  \"resource\": \"vertx\",\n" +
+                            "  \"resource\": " + "\"" + RESOURCE + "\"" + ",\n" +
                             "  \"credentials\": {\n" +
-                            "    \"secret\": \"ffdf9fec-aff3-4e22-bde1-8168aa9e24f6\"\n" +
+                            "    \"secret\": "  + "\"" + CREDENTIALS + "\"" + "\n" +
                             "  }\n" +
                             "}"
             ))

@@ -67,7 +67,8 @@ Open a terminal, log on to the OpenShift Server `oc login https://<OPENSHIFT_ADD
 Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart 
 
 ```
-mvn clean install
+. ./scripts/set_env_var_vertx.sh
+mvn clean compile vertx:run -DPUBLIC_KEY=$PUBLIC_KEY -DAUTH_SERVER_URL=$AUTH_SERVER_URL -DRESOURCE=$RESOURCE -DCREDENTIALS=$CREDENTIALS -DREALM=$REALM
 ```
 
 # Launch / deploy
@@ -149,10 +150,4 @@ To test locally the quickstart, install & start a Red Hat SSO server. Next, pass
 
 ```
 mvn test -Dsso.url=http://localhost:8080 -Drealm=<realm> -Drealm.public.key=<public key> -Dclient.id=<client id> -Dsecret=<secret>
-```
-
-# Bootstrap Keycloak using Docker
-
-```
-docker run --rm -p 9000:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak
 ```
