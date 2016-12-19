@@ -150,3 +150,9 @@ To test locally the quickstart, install & start a Red Hat SSO server. Next, pass
 ```
 mvn test -Dsso.url=http://localhost:8080 -Drealm=<realm> -Drealm.public.key=<public key> -Dclient.id=<client id> -Dsecret=<secret>
 ```
+
+# Bootstrap Keycloak using Docker
+
+```
+docker run --rm -p 9000:8080 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jboss/keycloak
+```

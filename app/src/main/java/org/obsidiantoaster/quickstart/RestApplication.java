@@ -19,8 +19,14 @@ package org.obsidiantoaster.quickstart;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.auth.oauth2.AccessToken;
+import io.vertx.ext.auth.oauth2.OAuth2Auth;
+import io.vertx.ext.auth.oauth2.OAuth2ClientOptions;
+import io.vertx.ext.auth.oauth2.OAuth2FlowType;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.OAuth2AuthHandler;
 import org.obsidiantoaster.quickstart.service.Greeting;
 
 import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
@@ -35,6 +41,21 @@ public class RestApplication extends AbstractVerticle {
     // Create a router object.
     Router router = Router.router(vertx);
 
+    // Initialize the OAuth2 Library
+    OAuth2AuthHandler oauth2 = OAuth2AuthHandler.create(
+            OAuth2Auth.createKeycloak(vertx, OAuth2FlowType.AUTH_CODE, new JsonObject(
+                                                                                              "{\n" +
+            "  \"realm\": \"master\",\n" +
+            "  \"realm-public-key\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjSLQrbpwNkpuNc+LxcrG711/oIsqUshISLWjXALgx6/L7NItNrPjJTwzqtWCTJrl0/eQLcPdi7UeZA1qjPGa1l+AIj+FnLyCOl7gm65xB3xUpRuGNe5mJ9a+ZtzprXOKhd0WRC8ydiMwyFxIQJPjt7ywlNvU0hZR1U3QboLRICadP5WPaoYNOaYmpkX34r+kegVfdga+1xqG6Ba5v2/9rRg74KxJubCQxcinbH7gVIYSyFQPP5OpBo14SuynFL1YhWDpgUhLz7gr60sG+RC5eC0zuvCRTELn+JquSogPUopuDej/Sd3T5VYHIBJ8P4x4MIz9/FDX8bOFwM73nHgL5wIDAQAB\",\n" +
+            "  \"auth-server-url\": \"http://localhost:8180/auth\",\n" +
+            "  \"ssl-required\": \"external\",\n" +
+            "  \"resource\": \"vertx\",\n" +
+            "  \"public-client\": true\n" +
+            "}")),"http://localhost:8080");
+
+    oauth2.setupCallback(router.get("/callback"));
+
+    router.route("/greeting").handler(oauth2);
     router.get("/greeting").handler(this::greeting);
 
     // Create the HTTP server and pass the "accept" method to the request handler.
