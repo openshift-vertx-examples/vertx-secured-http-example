@@ -50,7 +50,9 @@ public class RestApplication extends AbstractVerticle {
             "  \"auth-server-url\": \"http://localhost:8180/auth\",\n" +
             "  \"ssl-required\": \"external\",\n" +
             "  \"resource\": \"vertx\",\n" +
-            "  \"public-client\": true\n" +
+            "  \"credentials\": {\n" +
+            "    \"secret\": \"ffdf9fec-aff3-4e22-bde1-8168aa9e24f6\"\n" +
+            "  }\n" +
             "}")),"http://localhost:8080");
 
     oauth2.setupCallback(router.get("/callback"));
