@@ -40,9 +40,9 @@ public class RestApplication extends AbstractVerticle {
     Router router = Router.router(vertx);
 
     String REALM = System.getenv("REALM");
-    String PUBLIC_KEY = System.getenv("PUBLIC_KEY");
-    String AUTH_SERVER_URL = System.getenv("AUTH_SERVER_URL");
-    String RESOURCE = System.getenv("RESOURCE");
+    String REALM_PUBLIC_KEY = System.getenv("REALM_PUBLIC_KEY");
+    String SSO_URL = System.getenv("SSO_URL");
+    String CLIENT_ID = System.getenv("CLIENT_ID");
     String CREDENTIALS = System.getenv("CREDENTIALS");
 
     // Configure the AuthHandler to process JWToken
@@ -50,10 +50,10 @@ public class RestApplication extends AbstractVerticle {
             JWTAuth.create(vertx,new JsonObject(
                     "{\n" +
                             "  \"realm\": "  + "\"" + REALM  + "\"" + ",\n" +
-                            "  \"public-key\": " + "\"" + PUBLIC_KEY + "\"" + ",\n" +
-                            "  \"auth-server-url\": "  + "\"" + AUTH_SERVER_URL + "\"" + ",\n" +
+                            "  \"public-key\": " + "\"" + REALM_PUBLIC_KEY + "\"" + ",\n" +
+                            "  \"auth-server-url\": "  + "\"" + SSO_URL + "\"" + ",\n" +
                             "  \"ssl-required\": \"external\",\n" +
-                            "  \"resource\": " + "\"" + RESOURCE + "\"" + ",\n" +
+                            "  \"resource\": " + "\"" + CLIENT_ID + "\"" + ",\n" +
                             "  \"credentials\": {\n" +
                             "    \"secret\": "  + "\"" + CREDENTIALS + "\"" + "\n" +
                             "  }\n" +

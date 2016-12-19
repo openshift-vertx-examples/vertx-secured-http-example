@@ -29,15 +29,15 @@ spec:
         - name: JAVA_APP_DIR
           value: /deployments
         - name: SSO_URL
-          value: 'https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth'
+          value: ${SSO_URL}
         - name: REALM
-          value: 'master'
+          value: ${REALM}
         - name: REALM_PUBLIC_KEY
-          value: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjSLQrbpwNkpuNc+LxcrG711/oIsqUshISLWjXALgx6/L7NItNrPjJTwzqtWCTJrl0/eQLcPdi7UeZA1qjPGa1l+AIj+FnLyCOl7gm65xB3xUpRuGNe5mJ9a+ZtzprXOKhd0WRC8ydiMwyFxIQJPjt7ywlNvU0hZR1U3QboLRICadP5WPaoYNOaYmpkX34r+kegVfdga+1xqG6Ba5v2/9rRg74KxJubCQxcinbH7gVIYSyFQPP5OpBo14SuynFL1YhWDpgUhLz7gr60sG+RC5eC0zuvCRTELn+JquSogPUopuDej/Sd3T5VYHIBJ8P4x4MIz9/FDX8bOFwM73nHgL5wIDAQAB'
+          value: ${REALM_PUBLIC_KEY}
         - name: CLIENT_ID
-          value: 'demoapp'
+          value: ${CLIENT_ID}
         - name: SECRET
-          value: 'cb7a8528-ad53-4b2e-afb8-72e9795c27c8'
+          value: ${SECRET}
         image: secured-vertx-rest:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
