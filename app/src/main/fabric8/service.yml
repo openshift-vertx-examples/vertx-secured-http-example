@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: secured-springboot-rest
+  name: secured-vertx-rest
 spec:
   ports:
   - port: 8080
     targetPort: 8080
   selector:
-    deploymentConfig: secured-springboot-rest
+    deploymentConfig: secured-vertx-rest
