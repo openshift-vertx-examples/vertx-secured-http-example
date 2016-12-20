@@ -4,21 +4,11 @@ metadata:
   name: secured-vertx-rest
 spec:
   replicas: 1
-  selector:
-    project: secured-vertx-rest
-    provider: fabric8
-    group: org.jboss.quickstart
   strategy:
     rollingParams:
       timeoutSeconds: 10800
     type: Rolling
   template:
-    metadata:
-      labels:
-        provider: fabric8
-        project: secured-vertx-rest
-        version: 1.0-SNAPSHOT
-        group: org.jboss.quickstart
     spec:
       containers:
       - env:
@@ -29,7 +19,7 @@ spec:
         - name: JAVA_APP_DIR
           value: /deployments
         - name: SSO_URL
-          value: ${SSO_URL}
+          value: ${SSO_URL}/auth
         - name: REALM
           value: ${REALM}
         - name: REALM_PUBLIC_KEY
