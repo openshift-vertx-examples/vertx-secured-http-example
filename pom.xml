@@ -46,7 +46,7 @@
 
     <modules>
         <module>app</module>
-        <module>build</module>
+        <module>sso</module>
     </modules>
 
     <build>

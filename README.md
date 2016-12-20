@@ -14,7 +14,7 @@ the application issuing the call to the REST endpoint has been granted to access
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
 To manage the security, roles & permissions to access the service, a [Red Hat SSO](https://access.redhat.com/documentation/en/red-hat-single-sign-on/7.0/securing-applications-and-services-guide/securing-applications-and-services-guide) backend will be installed and configured for this project.
-It relies on the Keycloak project which implements the `OpenId` connect specification which is an extension of the `Oauth2` protocol. 
+It relies on the Keycloak project which implements the `OpenId` connect specification which is an extension of the `Oauth2` protocol.
 
 After a successful login, the application will receive an `identity token` and an `access token`. The identity token contains information about the user such as username, email, and other profile information.
 The access token is digitally signed by the realm and contains access information (like user role mappings)
@@ -49,8 +49,8 @@ And the HTTP requests accessing the endpoint/Service will include the Bearer Tok
 http://<Vert.x_App>/greeting -H "Authorization:Bearer <ACCESS_TOKEN>"
 ```
 
-The project is split into two Apache Maven modules - `app` and `build`.
-The `App` module exposes the REST Service using as technology Vert.x bundled with the Apache Tomcat 8.0.36 artifacts while the `build` module contains the OpenShift objects
+The project is split into two Apache Maven modules - `app` and `sso`.
+The `App` module exposes the REST Service using as technology Vert.x bundled with the Apache Tomcat 8.0.36 artifacts while the `sso` module contains the OpenShift objects
 required to deploy the Red Hat SSO Server 7.0 along with the "app" module.
 
 The goal of this project is to deploy the quickstart against an OpenShift environment (online, dedicated, ...).
@@ -64,7 +64,7 @@ Once you have this, along with the [OpenShift CLI tool](https://docs.openshift.c
 
 Open a terminal, log on to the OpenShift Server `oc login https://<OPENSHIFT_ADDRESS> --token=MYTOLEN` when you use OpenShift Online or Dedicated.
 
-Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart 
+Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart
 
 ```
 . ./scripts/set_env_var_vertx.sh
@@ -73,10 +73,10 @@ mvn clean compile vertx:run -DPUBLIC_KEY=$PUBLIC_KEY -DAUTH_SERVER_URL=$AUTH_SER
 
 # Launch / deploy
 
-To deploy the whole secured app, first move to build/ dir, and then simply use the `Fabric8` Maven Plugin with the goals `deploy` and `start`:
+To deploy the whole secured app, first move to sso/ dir, and then simply use the `Fabric8` Maven Plugin with the goals `deploy` and `start`:
 
 ```
-cd build
+cd sso
 mvn fabric8:deploy fabric8:start
 ```
 
@@ -87,7 +87,7 @@ Note: until https://issues.jboss.org/browse/CLOUD-1166 is fixed,
 we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
 
 To specify the Red Hat SSO URL to be used by the Vert.x Application, it is required to change the SSO_URL env variable assigned to the DeploymentConfig object.
-You can change this value using the following oc command where the https server to be defined corresponds to the location of the Red Hat SSO Server running 
+You can change this value using the following oc command where the https server to be defined corresponds to the location of the Red Hat SSO Server running
 in OpenShift.
 
 ```
@@ -96,11 +96,11 @@ oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshif
 
 # Access the service
 
-If the pod of the Secured Vert.x Application is running like also the Red Hat SSO Server, you 
+If the pod of the Secured Vert.x Application is running like also the Red Hat SSO Server, you
 can use one of the bash scripts proposed within the root of the project to access the service.
 
 Depending which tool you prefer to use (curl or httpie), use one of bash files available and pass as parameters
-the address of the Red Hat Secured SSO Server and the Secured Vert.x Application. 
+the address of the Red Hat Secured SSO Server and the Secured Vert.x Application.
 
 ```
 ./scripts/httpie/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
@@ -117,7 +117,7 @@ You can find such routes using this oc client command `oc get routes` or the Ope
 # Access the service using a user without admin role
 
 To secure the Vert.x REST endpoint, different properties must be defined within the `app/src/main/resources/application.properties` file which contains
-such Keycloak parameters. 
+such Keycloak parameters.
 
 ```
 keycloak.securityConstraints[0].securityCollections[0].name=admin stuff
@@ -146,7 +146,7 @@ Next, you can call again the greeting endpoint by issuing a HTTP request where t
 
 (atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
 
-To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
+To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server
 
 ```
 mvn test -Dsso.url=http://localhost:8080 -Drealm=<realm> -Drealm.public.key=<public key> -Dclient.id=<client id> -Dsecret=<secret>

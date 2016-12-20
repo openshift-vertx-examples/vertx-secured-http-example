@@ -27,7 +27,7 @@
 
     <artifactId>secured-vertx-rest-build</artifactId>
 
-    <name>build</name>
+    <name>sso</name>
     <description>Obsidian :: Quickstart :: Secured Vertx - Rest [Build]</description>
 
     <dependencies>
