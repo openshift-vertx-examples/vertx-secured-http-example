@@ -1,5 +1,7 @@
----
+apiVersion: v1
 kind: Route
+metadata:
+  name: secured-springboot-rest
 spec:
   to:
     name: "secured-vertx-rest"
