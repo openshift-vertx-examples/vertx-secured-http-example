@@ -77,7 +77,7 @@ To deploy the whole secured app, first move to sso/ dir, and then simply use the
 
 ```
 cd sso
-mvn fabric8:deploy fabric8:start
+mvn fabric8:deploy fabric8:start -Popenshift
 ```
 
 Open OpenShift console in the browser to see the status of the app,
