@@ -73,6 +73,23 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+
+        <plugins>
+            <!-- vert.x maven plugin to generate the fat-jar -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>vertx-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>vmp</id>
+                        <goals>
+                            <goal>initialize</goal>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
