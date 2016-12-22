@@ -120,5 +120,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+  
+  <scm>
+    <connection>scm:git:git://github.com/obsidian-toaster-quickstarts/quick_secured_rest-vertx.git</connection>
+    <developerConnection>scm:git:git@github.com:obsidian-toaster-quickstarts/quick_secured_rest-vertx.git</developerConnection>
+    <url>http://github.com/obsidian-toaster-quickstarts/quick_secured_rest-vertx</url>
+    <tag>HEAD</tag>
+  </scm>
+  
 </project>
