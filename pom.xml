@@ -29,7 +29,7 @@
     <packaging>pom</packaging>
 
     <name>parent</name>
-    <description>Obsidian :: Quickstart :: Secured Vertx - Rest &amp; Red Hat SSO</description>
+    <description>Secured Vertx - Rest &amp; Red Hat SSO</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -124,12 +124,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-  
+
   <scm>
     <connection>scm:git:git://github.com/obsidian-toaster-quickstarts/quick_secured_rest-vertx.git</connection>
     <developerConnection>scm:git:git@github.com:obsidian-toaster-quickstarts/quick_secured_rest-vertx.git</developerConnection>
     <url>http://github.com/obsidian-toaster-quickstarts/quick_secured_rest-vertx</url>
     <tag>HEAD</tag>
   </scm>
-  
+
 </project>
