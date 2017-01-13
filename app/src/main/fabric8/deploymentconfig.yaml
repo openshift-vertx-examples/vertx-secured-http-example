@@ -30,12 +30,6 @@ spec:
           value: ${SECRET}
         image: secured-vertx-rest:latest
         imagePullPolicy: IfNotPresent
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 180
         name: secured-vertx-rest
         ports:
         - containerPort: 8080
@@ -47,12 +41,6 @@ spec:
         - containerPort: 8778
           name: jolokia
           protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 10
         securityContext:
           privileged: false
   triggers:
