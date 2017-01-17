@@ -91,7 +91,7 @@ You can change this value using the following oc command where the https server 
 in OpenShift.
 
 ```
-oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com/auth
 ```
 
 # Access the service
@@ -103,8 +103,8 @@ Depending which tool you prefer to use (curl or httpie), use one of bash files a
 the address of the Red Hat Secured SSO Server and the Secured Vert.x Application.
 
 ```
-./scripts/httpie/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
-./scripts/curl/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/httpie/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/curl/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://localhost:8080
 ```
 
 The URLs of the Red Hat SSO & Vert.x Application are created according to this convention:
