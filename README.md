@@ -104,7 +104,7 @@ the address of the Red Hat Secured SSO Server and the Secured Vert.x Application
 
 ```
 ./scripts/httpie/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
-./scripts/curl/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://localhost:8080
+./scripts/curl/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
 ```
 
 The URLs of the Red Hat SSO & Vert.x Application are created according to this convention:
