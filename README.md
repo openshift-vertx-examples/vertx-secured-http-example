@@ -68,7 +68,7 @@ Create a new project on OpenShift `oc new-project <some_project_name>` and next 
 
 ```
 . ./scripts/set_env_var_vertx.sh
-mvn clean compile vertx:run -DPUBLIC_KEY=$PUBLIC_KEY -DAUTH_SERVER_URL=$AUTH_SERVER_URL -DRESOURCE=$RESOURCE -DCREDENTIALS=$CREDENTIALS -DREALM=$REALM
+mvn clean install -Popenshift
 ```
 
 # Launch / deploy
@@ -77,7 +77,7 @@ To deploy the whole secured app, first move to sso/ dir, and then simply use the
 
 ```
 cd sso
-mvn fabric8:deploy fabric8:start -Popenshift
+mvn fabric8:deploy -Popenshift
 ```
 
 Open OpenShift console in the browser to see the status of the app,
@@ -97,14 +97,12 @@ oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-ssovertx.e8ca.engint.ope
 # Access the service
 
 If the pod of the Secured Vert.x Application is running like also the Red Hat SSO Server, you
-can use one of the bash scripts proposed within the root of the project to access the service.
+can use the bash scripts proposed within the root of the project to access the service.
 
-Depending which tool you prefer to use (curl or httpie), use one of bash files available and pass as parameters
-the address of the Red Hat Secured SSO Server and the Secured Vert.x Application.
+use the following bash script and pass as parameters the address of the Red Hat Secured SSO Server and the Secured Vert.x Application.
 
 ```
-./scripts/httpie/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
-./scripts/curl/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
 ```
 
 The URLs of the Red Hat SSO & Vert.x Application are created according to this convention:
@@ -131,15 +129,13 @@ The authRoles property defines which Keycloak roles are allowed to access the de
 To verify that a user without the `admin` role can't access the service, you will create a new user using the following bash script
 
 ```
-./scripts/curl/add_user.sh <SSO_HOST> <Vert.x_HOST>
-./scripts/httpie/add_user.sh <SSO_HOST> <Vert.x_HOST>
+./scripts/add_user.sh <SSO_HOST> <Vert.x_HOST>
 ```
 
 Next, you can call again the greeting endpoint by issuing a HTTP request where the username is `bburke` and the password `password`. In response, you will be notified that yoou can't access to the service
 
 ```
-./scripts/curl/token_user_req.sh <SSO_HOST> <Vert.x_HOST>
-./scripts/httpie/token_user_req.sh <SSO_HOST> <Vert.x_HOST>
+./scripts/token_user_req.sh <SSO_HOST> <Vert.x_HOST>
 ```
 
 # Test
