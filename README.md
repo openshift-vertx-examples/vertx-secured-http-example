@@ -137,13 +137,3 @@ Next, you can call again the greeting endpoint by issuing a HTTP request where t
 ```
 ./scripts/token_user_req.sh <SSO_HOST> <Vert.x_HOST>
 ```
-
-# Test
-
-(atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
-
-To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server
-
-```
-mvn test -Dsso.url=http://localhost:8080 -Drealm=<realm> -Drealm.public.key=<public key> -Dclient.id=<client id> -Dsecret=<secret>
-```
