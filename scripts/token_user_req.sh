@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(dirname "$0")"
 
-. $SCRIPT_DIR/../common.sh
+. $SCRIPT_DIR/common.sh
 
 USER=bburke
 PASSWORD=password
