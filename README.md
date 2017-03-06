@@ -67,7 +67,6 @@ Open a terminal, log on to the OpenShift Server `oc login https://<OPENSHIFT_ADD
 Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart
 
 ```
-. ./scripts/set_env_var_vertx.sh
 mvn clean install -Popenshift
 ```
 
