@@ -55,6 +55,24 @@ required to deploy the Red Hat SSO Server 7.0 along with the "app" module.
 
 The goal of this project is to deploy the quickstart against an OpenShift environment (online, dedicated, ...).
 
+# Prerequisites
+
+To get started with this quickstart you'll need the following prerequisites:
+
+Name | Description | Version
+--- | --- | ---
+[java][1] | Java JDK | 8
+[maven][2] | Apache Maven | 3.3.x
+[oc][3] | OpenShift Client | v3.3.x
+[git][4] | Git version management | 2.x
+
+[1]: http://www.oracle.com/technetwork/java/javase/downloads/
+[2]: http://maven.apache.org/download.cgi 
+[3]: https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html
+[4]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+In order to build and deploy this project, you must have an account on an OpenShift Online (OSO): https://console.dev-preview-int.openshift.com/ instance.
+
 # Build
 
 In order to build and deploy this project, it is required to have an account on an OpenShift Online (OSO): https://console.dev-preview-stg.openshift.com/ instance
