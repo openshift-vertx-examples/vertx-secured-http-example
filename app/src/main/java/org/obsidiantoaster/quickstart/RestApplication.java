@@ -44,10 +44,23 @@ public class RestApplication extends AbstractVerticle {
       .put("ssl-required", "external")
       .put("resource", System.getenv("CLIENT_ID"))
       .put("credentials", new JsonObject()
-        .put("secret", System.getenv("CREDENTIALS")));
+        .put("secret", System.getenv("CREDENTIALS")))
+      // since we're consuming keycloak JWTs we need to locate the permission claims in the token
+      .put("permissionsClaimKey", "realm_access/roles");
 
     // Configure the AuthHandler to process JWT's
     router.route("/greeting").handler(JWTAuthHandler.create(JWTAuth.create(vertx, config)));
+
+    // This is how one can do RBAC, e.g.: only admin is allowed
+    router.get("/greeting").handler(ctx -> {
+      ctx.user().isAuthorised("admin", authz -> {
+        if (authz.succeeded() && authz.result()) {
+          ctx.next();
+        } else {
+          ctx.fail(new RuntimeException("AuthZ failed!"));
+        }
+      });
+    });
 
     router.get("/greeting").handler(ctx -> {
       String name = ctx.request().getParam("name");
