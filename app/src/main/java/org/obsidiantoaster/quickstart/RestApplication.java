@@ -19,6 +19,8 @@ package org.obsidiantoaster.quickstart;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.JWTAuthHandler;
@@ -29,7 +31,7 @@ import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
 
 public class RestApplication extends AbstractVerticle {
 
-
+  private final Logger log = LoggerFactory.getLogger(RestApplication.class);
   private long counter;
 
   @Override
@@ -57,7 +59,8 @@ public class RestApplication extends AbstractVerticle {
         if (authz.succeeded() && authz.result()) {
           ctx.next();
         } else {
-          ctx.fail(new RuntimeException("AuthZ failed!"));
+          log.error("AuthZ failed!");
+          ctx.fail(403);
         }
       });
     });
