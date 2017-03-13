@@ -55,7 +55,7 @@ public class RestApplication extends AbstractVerticle {
 
     // This is how one can do RBAC, e.g.: only admin is allowed
     router.get("/greeting").handler(ctx -> {
-      ctx.user().isAuthorised("admin", authz -> {
+      ctx.user().isAuthorised("vertx-admin", authz -> {
         if (authz.succeeded() && authz.result()) {
           ctx.next();
         } else {
