@@ -42,7 +42,7 @@ public class RestApplication extends AbstractVerticle {
     JsonObject config = new JsonObject()
       .put("realm", System.getenv("REALM"))
       .put("public-key", System.getenv("REALM_PUBLIC_KEY"))
-      .put("auth-server-url", System.getenv("SSO_URL"))
+      .put("auth-server-url", System.getenv("SSO_AUTH_SERVER_URL"))
       .put("ssl-required", "external")
       .put("resource", System.getenv("CLIENT_ID"))
       .put("credentials", new JsonObject()
@@ -55,7 +55,7 @@ public class RestApplication extends AbstractVerticle {
 
     // This is how one can do RBAC, e.g.: only admin is allowed
     router.get("/greeting").handler(ctx -> {
-      ctx.user().isAuthorised("admin", authz -> {
+      ctx.user().isAuthorised("vertx-admin", authz -> {
         if (authz.succeeded() && authz.result()) {
           ctx.next();
         } else {
