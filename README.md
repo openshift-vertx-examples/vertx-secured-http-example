@@ -61,86 +61,81 @@ where the official `keycloak.js` is used to simplify the interaction with the se
 
 The project is split into two Apache Maven modules - `app` and `sso`.
 
-The `App` module exposes the REST Service using as technology Vert.x while the `sso` module contains the OpenShift
-objects required to deploy the Red Hat SSO Server 7.0 along with the "app" module.
-
 The goal of this project is to deploy the quickstart against an OpenShift environment (online, dedicated, ...).
 
-# Build
+# Prerequisites
 
-In order to build and deploy this project, it is required to have an account on an OpenShift Online (OSO): 
-`https://console.dev-preview-stg.openshift.com/` instance or you're welcome to setup your own OpenShift env; via
-`minishift`.
+To get started with these quickstarts you'll need the following prerequisites:
 
-Once you have this, along with the
-[OpenShift CLI tool](https://docs.openshift.com/online/cli_reference/get_started_cli.html), you're ready to go.
+Name | Description | Version
+--- | --- | ---
+[java][1] | Java JDK | 8
+[maven][2] | Apache Maven | 3.2.x
+[oc][3] | OpenShift Client | v3.3.x
+[git][4] | Git version management | 2.x
 
-Open a terminal, log on to the OpenShift Server `oc login https://<OPENSHIFT_ADDRESS> --token=MYTOLEN` when you use 
-OpenShift Online or Dedicated.
+[1]: http://www.oracle.com/technetwork/java/javase/downloads/
+[2]: https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/
+[3]: https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html
+[4]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart
+In order to build and deploy this project, you must have an account on an OpenShift Online (OSO): https://console.dev-preview-int.openshift.com/ instance.
 
-```
-mvn clean install -Popenshift
-```
+# OpenShift Online
 
-# Launch / deploy
+1. Using OpenShift Online or Dedicated, log on to the OpenShift Server.
 
-To deploy the whole secured app, first move to sso/ dir, and then simply use the `Fabric8` Maven Plugin with the goals
-`deploy` and `start`:
+    ```bash
+    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOKEN
+    ```
 
-```
-cd sso
-mvn fabric8:deploy -Popenshift
-```
+1. Create a new project on OpenShift.
 
-Open OpenShift console in the browser to see the status of the app, and the exact routes, to be used to access the app's
-greeting endpoint or to access the Red Hat SSO's admin console.
+    ```bash
+    oc new-project <some_project_name>
+    ```
 
-Note: until https://issues.jboss.org/browse/CLOUD-1166 is fixed, we need to fix the redirect-uri in RH-SSO admin
-console, to point to our app's route.
+1. Build the quickstart.
 
-To specify the Red Hat SSO URL to be used by the Vert.x Application, it is required to change the SSO_URL env variable
-assigned to the DeploymentConfig object. You can change this value using the following oc command where the https server
-to be defined corresponds to the location of the Red Hat SSO Server running in OpenShift.
+    ```
+    mvn clean install -Popenshift
+    ```
 
-```
-oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-myproject.192.168.178.12.xip.io/auth
-```
+# Deploy the Application
 
-Finally in order to allow both web and API access to keycloak 3 changes need to be done in the default configuration.
-Open the SSO admin console `https://secure-sso-myproject.192.168.178.12.xip.io/auth/admin/master/console`, goto clients
-and select `demoapp`. In this view we need to change:
+1. First, to deploy Red Hat SSO, clone the [redhat-sso](https://github.com/obsidian-toaster-quickstarts/redhat-sso) project
+and following the README.md instructions.
 
-* `Access Type`: to `public`
-* `Valid Redirect URIs`: to `http://vertx-rest-sso.e8ca.engint.openshiftapps.com/*` (your application URL slash start)
-* `Web Origins`: to `*`
+    ```bash
+    cd redhat-sso
+    mvn fabric8:deploy
+    ```
 
-These are just indications for better security you should restrict the wildcards.
+1. Open the OpenShift web console to see the status of the app and the exact routes used to access the app's greeting endpoint, or to access the Red Hat SSO's admin console.
+
+    Note: until [CLOUD-1166](https://issues.jboss.org/browse/CLOUD-1166) is fixed,
+    we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
+
+1. To specify the Red Hat SSO URL to be used by the Spring Boot application,
+you must change the SSO_URL env variable assigned to the DeploymentConfig object.
+
+    Note: You can retrieve the address of the SSO Server by issuing this command `oc get route/secure-sso` in a terminal and get the HOST/PORT name
+
+    ```
+    oc env dc/secured-vertx-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+    ```
 
 # Access the service
 
-You can experiment at an high level with the service by using the web client demo. Just open the root directory of the
-server. Of course we are demonstrating APIs so you can interact with then using plain HTTP clients such as curl.
+Use the rh-sso project scripts to access the secured endpoints.
 
-If the pod of the Secured Vert.x Application is running like also the Red Hat SSO Server, you
-can use the bash scripts proposed within the root of the project to access the service.
-
-use the following bash script and pass as parameters the address of the Red Hat Secured SSO Server and the Secured
-Vert.x Application.
-
-```
-./scripts/token_req.sh https://secure-sso-ssovertx.e8ca.engint.openshiftapps.com http://vertx-rest-sso.e8ca.engint.openshiftapps.com
-```
-
-The URLs of the Red Hat SSO & Vert.x Application are created according to this convention:
-
-* Red Hat Secured SSO : <secured_sso_route>.<namespace>.<host_machine>
-* Secured Vert.x Application : <secured_vertx_route>.<namespace>.<host_machine>
-
-You can find such routes using this oc client command `oc get routes` or the Openshift Console.
+TODO:
+1. cd redhat-sso
+1. scripts/token_req.sh secured-swarm-rest
 
 # Access the service using a user without admin role
+
+TODO.
 
 The patterns property defines as pattern, the `/greeting` endpoint which means that this endpoint is protected by
 Keycloak. Every other endpoint that is not explicitly listed is NOT secured by Keycloak and is publicly available.
