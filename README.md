@@ -91,7 +91,7 @@ section and follow the instruction to obtain it.
 
 # Build and deploy the Application
 
-The WildFly Swarm application needs to be packaged and deployed. This process will generate the uber jar file, the OpenShift resources
+The Vert.x application needs to be packaged and deployed. This process will generate the uber jar file, the OpenShift resources
 and deploy them within the namespace of the OpenShift Server. Make sure you pass in the SSO_AUTH_SERVER_URL you
 obtained during the deployment of the RH SSO server.
 
