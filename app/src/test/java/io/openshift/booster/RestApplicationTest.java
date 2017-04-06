@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.obsidiantoaster.quickstart;
+package io.openshift.booster;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
@@ -22,7 +22,7 @@ import io.vertx.core.json.Json;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
-import org.obsidiantoaster.quickstart.service.Greeting;
+import io.openshift.booster.service.Greeting;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

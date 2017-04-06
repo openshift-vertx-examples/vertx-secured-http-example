@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.obsidiantoaster.quickstart;
+package io.openshift.booster;
 
 import io.fabric8.kubernetes.client.KubernetesClient;
 import org.jboss.arquillian.container.test.api.RunAsClient;

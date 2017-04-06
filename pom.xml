@@ -23,13 +23,13 @@
         <artifactId>jboss-parent</artifactId>
         <version>21</version>
     </parent>
-    <groupId>org.obsidiantoaster.quickstart</groupId>
-    <artifactId>secured-vertx-rest-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>io.openshift.booster</groupId>
+    <artifactId>secured-vertx-http-parent</artifactId>
+    <version>1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>parent</name>
-    <description>Secured Vertx - Rest &amp; Red Hat SSO</description>
+    <name>Vert.x - Secured HTTP endpoint</name>
+    <description>Secured Vertx - HTTP &amp; Red Hat SSO</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,7 +45,7 @@
         <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
         <vertx-maven-plugin.version>1.0.2</vertx-maven-plugin.version>
 
-        <vertx.verticle>org.obsidiantoaster.quickstart.RestApplication</vertx.verticle>
+        <vertx.verticle>io.openshift.booster.RestApplication</vertx.verticle>
     </properties>
 
     <modules>
@@ -117,8 +117,8 @@
             </dependency>
             <!-- This -->
             <dependency>
-                <groupId>org.obsidiantoaster.quickstart</groupId>
-                <artifactId>secured-vertx-rest</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>secured-vertx-http</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

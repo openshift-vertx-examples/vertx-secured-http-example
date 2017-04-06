@@ -30,7 +30,7 @@ The access token is digitally signed by the realm and contains access informatio
 This is typically this `access token` formatted as a JSON Token that the Vert.x application will use to allow access to
 the application.
 
-The configuration of the adapter is defined within the `app/src/main/java/org/obsidiantoaster/quickstart/RestApplication.java`
+The configuration of the adapter is defined within the `app/src/main/java/io/openshift/booster/RestApplication.java`
 file using these environment properties:
 
 ```
