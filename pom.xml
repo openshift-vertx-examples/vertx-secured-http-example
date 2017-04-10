@@ -17,111 +17,68 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>21</version>
-    </parent>
-    <groupId>io.openshift.booster</groupId>
-    <artifactId>secured-vertx-http-parent</artifactId>
-    <version>1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.openshift</groupId>
+    <artifactId>booster-parent</artifactId>
+    <version>2</version>
+  </parent>
+  <groupId>io.openshift.booster</groupId>
+  <artifactId>secured-vertx-http-parent</artifactId>
+  <version>1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <name>Vert.x - Secured HTTP endpoint</name>
-    <description>Secured Vertx - HTTP &amp; Red Hat SSO</description>
+  <name>Vert.x - Secured HTTP endpoint</name>
+  <description>Secured Vertx - HTTP &amp; Red Hat SSO</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+  <properties>
+    <vertx.version>3.4.1</vertx.version>
+    <slf4j.version>1.7.21</slf4j.version>
+    <vertx-maven-plugin.version>1.0.6</vertx-maven-plugin.version>
+    <vertx.verticle>io.openshift.booster.RestApplication</vertx.verticle>
+  </properties>
 
-        <fabric8.version>2.2.205</fabric8.version>
-        <vertx.version>3.4.0.Beta1</vertx.version>
-        <slf4j.version>1.7.21</slf4j.version>
+  <modules>
+    <module>app</module>
+  </modules>
 
-        <fabric8.maven.plugin.version>3.1.92</fabric8.maven.plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
-        <vertx-maven-plugin.version>1.0.2</vertx-maven-plugin.version>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>vertx-maven-plugin</artifactId>
+          <version>${vertx-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>vmp</id>
+              <goals>
+                <goal>initialize</goal>
+                <goal>package</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
-        <vertx.verticle>io.openshift.booster.RestApplication</vertx.verticle>
-    </properties>
-
-    <modules>
-        <module>app</module>
-    </modules>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>fabric8-maven-plugin</artifactId>
-                    <version>${fabric8.maven.plugin.version}</version>
-                </plugin>
-                <!-- vert.x maven plugin to generate the fat-jar -->
-                <plugin>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>vertx-maven-plugin</artifactId>
-                    <version>${vertx-maven-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>vmp</id>
-                            <goals>
-                                <goal>initialize</goal>
-                                <goal>package</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.fabric8</groupId>
-                <artifactId>fabric8-project-bom-with-platform-deps</artifactId>
-                <version>${fabric8.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-stack-depchain</artifactId>
-                <version>${vertx.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- This -->
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>secured-vertx-http</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-dependencies</artifactId>
+        <version>${vertx.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- This -->
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>secured-vertx-http</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>
