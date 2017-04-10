@@ -38,6 +38,7 @@ public class RestApplication extends AbstractVerticle {
   public void start(Future done) {
     // Create a router object.
     Router router = Router.router(vertx);
+    router.get("/health").handler(rc -> rc.response().end("OK"));
 
     JsonObject config = new JsonObject()
       .put("realm", System.getenv("REALM"))
