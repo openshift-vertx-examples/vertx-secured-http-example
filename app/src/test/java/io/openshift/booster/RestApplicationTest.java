@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -18,11 +18,9 @@ package io.openshift.booster;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
-import io.vertx.core.json.Json;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
-import io.openshift.booster.service.Greeting;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,11 +53,7 @@ public class RestApplicationTest {
         // Send a request and get a response
         Async async = context.async();
         client.get(8080, "localhost", "/greeting", resp -> {
-            assertThat(resp.statusCode()).isEqualTo(200);
-            resp.bodyHandler(body -> {
-                Greeting greeting = Json.decodeValue(body.toString(), Greeting.class);
-                assertThat(greeting.getContent()).isEqualTo("Hello, World!");
-            });
+            assertThat(resp.statusCode()).isEqualTo(401);
             async.complete();
         })
             .exceptionHandler(context::fail)
@@ -71,11 +65,7 @@ public class RestApplicationTest {
         // Send a request and get a response
         Async async = context.async();
         client.get(8080, "localhost", "/greeting?name=Charles", resp -> {
-            assertThat(resp.statusCode()).isEqualTo(200);
-            resp.bodyHandler(body -> {
-                Greeting greeting = Json.decodeValue(body.toString(), Greeting.class);
-                assertThat(greeting.getContent()).isEqualTo("Hello, World!");
-            });
+            assertThat(resp.statusCode()).isEqualTo(401);
             async.complete();
         })
             .exceptionHandler(context::fail)
