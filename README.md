@@ -21,4 +21,4 @@ Submodule path 'sso': checked out 'cd9fbf0980a3930ca7da1f1814a040bf5b032e96'
 # Full Booster Experience Docs
 See the full booster experience docs online at:
 
-<http://openshiftio-appdev-docs-appdev-documentation.tsrv.devshift.net/mission-secured-vertx.html>
+<http://appdev.openshift.io/mission-secured-vertx.html>
