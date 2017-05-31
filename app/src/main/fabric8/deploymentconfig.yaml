@@ -19,7 +19,7 @@ spec:
         - name: JAVA_APP_DIR
           value: /deployments
         - name: SSO_AUTH_SERVER_URL
-          value: ${SSSO_AUTH_SERVER_URL}
+          value: ${SSO_AUTH_SERVER_URL}
         - name: REALM
           value: ${REALM}
         - name: REALM_PUBLIC_KEY
