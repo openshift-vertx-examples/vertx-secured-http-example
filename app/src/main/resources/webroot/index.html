@@ -26,7 +26,7 @@
     function invokeAPI() {
       // create a AJAX call
       var req = new XMLHttpRequest();
-      var url = '//' + window.location.host + '/greeting?name=' + encodeURIComponent(keycloak.username || '');
+      var url = '//' + window.location.host + '/greeting?name=' + encodeURIComponent(keycloak.username || 'World');
 
       req.open('GET', url, true);
       // add the required headers
@@ -70,7 +70,7 @@
   <h3>Result:</h3>
   <div class="row">
     <div class="col-12">
-      <pre><code id="result"><i>Your API result...</i></code></pre>
+      <pre><code id="result" style="font-style: italic">Your API result...</code></pre>
     </div>
   </div>
 </div>
