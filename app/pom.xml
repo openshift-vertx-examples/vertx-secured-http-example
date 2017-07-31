@@ -81,6 +81,10 @@
         <directory>src/main/fabric8</directory>
         <filtering>true</filtering>
       </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
     </resources>
     <testResources>
       <testResource>

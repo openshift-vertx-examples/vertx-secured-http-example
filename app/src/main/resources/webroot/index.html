@@ -8,13 +8,12 @@
   <script type="application/javascript">
     function initSSO() {
       // configure the SSO object
-      keycloak = Keycloak('/keycloak.json').init({
-        onLoad: 'check-sso',
-        checkLoginIframeInterval: 5
-      }).success(function () {
+      keycloak = Keycloak('/keycloak.json');
+
+      keycloak.init().success(function () {
         // validate that init operation result
         if (keycloak.authenticated) {
-          alert('Authenticated as ' + keycloak.username);
+          alert('Authenticated!');
         } else {
           alert('Not Authenticated!');
         }
@@ -35,14 +34,16 @@
       // handle the response
       req.onreadystatechange = function () {
         if (req.readyState === 4) {
-          if (req.status === 200) {
-            document.getElementById('result').innerText = req.responseText;
-          } else {
+          if (req.status >= 400) {
             alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.statusText);
+          } else if (req.status >= 200) {
+            document.getElementById('result').innerText = req.responseText;
           }
         }
       };
       req.send();
+      // avoid form submit
+      return false;
     }
   </script>
 </head>
