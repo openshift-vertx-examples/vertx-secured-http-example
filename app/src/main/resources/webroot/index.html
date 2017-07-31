@@ -1,68 +1,78 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <title>
-    Secure API UI test
-  </title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css"/>
-  <!-- Load keycloak -->
-  <script src="keycloak.js"></script>
-  <!-- The Application code -->
-  <script type="text/javascript">
-    var keycloak = Keycloak('/keycloak.json');
-
-    // init the app by requiring a valid user
-    keycloak.init({
-      checkLoginIframe: false,
-      onLoad: 'login-required'
-    });
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/wingcss"/>
+  <title>Secured HTTP API</title>
+  <script type="application/javascript" src="keycloak.js"></script>
+  <script type="application/javascript">
+    function initSSO() {
+      // configure the SSO object
+      keycloak = Keycloak('/keycloak.json').init({
+        onLoad: 'check-sso',
+        checkLoginIframeInterval: 5
+      }).success(function () {
+        // validate that init operation result
+        if (keycloak.authenticated) {
+          alert('Authenticated as ' + keycloak.username);
+        } else {
+          alert('Not Authenticated!');
+        }
+      }).error(function (err) {
+        alert(err);
+      });
+    }
 
     function invokeAPI() {
+      // create a AJAX call
       var req = new XMLHttpRequest();
-      var url = '//' + window.location.host;
-
-      url += (url.charAt(url.length - 1) === '/' ? '' : '/') +
-        'greeting?name=' + encodeURIComponent(keycloak.username || '');
+      var url = '//' + window.location.host + '/greeting?name=' + encodeURIComponent(keycloak.username || 'World');
 
       req.open('GET', url, true);
+      // add the required headers
       req.setRequestHeader('Accept', 'application/json');
       req.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
-
+      // handle the response
       req.onreadystatechange = function () {
-        if (req.readyState == 4) {
-          if (req.status == 200) {
-            document.getElementById('result').value = req.responseText;
-          } else if (req.status == 403) {
-            document.getElementById('result').value = 'Forbidden!';
-          } else if (req.status == 401) {
-            document.getElementById('result').value = 'Unauthorized!';
+        if (req.readyState === 4) {
+          if (req.status === 200) {
+            document.getElementById('result').innerText = req.responseText;
+          } else {
+            alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.statusText);
           }
         }
       };
-
       req.send();
     }
   </script>
 </head>
-<body>
-
+<body onload="initSSO()">
 <div class="container">
-
-  <h1>Secure API</h1>
-
-  <p>This is a simple playground to demo your secure API.</p>
-
-  <h3>Invoke the API</h3>
-
-  <a href="#" class="btn" onclick="invokeAPI();">Call API</a>
-
-  <h3>Result</h3>
-
+  <h3>Secure HTTP API</h3>
   <div class="row">
-    <div class="col-12"><input type="text" placeholder="Your API result..." id="result"/></div>
+    <div class="right">
+      <button id="login" onclick="keycloak.login()" class='outline'>Login</button>
+      &nbsp;
+      <button id="logout" onclick="keycloak.logout()">Logout</button>
+    </div>
+  </div>
+
+  <p>This booster showcases SSO for a basic endpoint.</p>
+
+  <h3>Greeting service:</h3>
+  <div class="row">
+    <form onsubmit="return invokeAPI()">
+      <input type="text" placeholder="What is your name?" id="name"/>
+      <input type="submit" value="Invoke"/>
+    </form>
+  </div>
+
+  <h3>Result:</h3>
+  <div class="row">
+    <div class="col-12">
+      <pre><code id="result" style="font-style: italic">Your API result...</code></pre>
+    </div>
   </div>
 </div>
-
 </body>
 </html>
