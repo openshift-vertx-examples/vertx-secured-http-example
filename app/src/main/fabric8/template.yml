@@ -37,7 +37,7 @@ parameters:
   required: true
 - description: RH-SSO client id.
   name: CLIENT_ID
-  value: secured-vertx-endpoint
+  value: demoapp
   required: true
 - description: RH-SSO secret.
   name: SECRET

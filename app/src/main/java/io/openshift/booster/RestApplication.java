@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -47,7 +47,7 @@ public class RestApplication extends AbstractVerticle {
       .put("ssl-required", "external")
       .put("resource", System.getenv("CLIENT_ID"))
       .put("credentials", new JsonObject()
-        .put("secret", System.getenv("CREDENTIALS")))
+        .put("secret", System.getenv("SECRET")))
       // since we're consuming keycloak JWTs we need to locate the permission claims in the token
       .put("permissionsClaimKey", "realm_access/roles");
 
@@ -56,7 +56,7 @@ public class RestApplication extends AbstractVerticle {
 
     // This is how one can do RBAC, e.g.: only admin is allowed
     router.get("/greeting").handler(ctx -> {
-      ctx.user().isAuthorised("vertx-admin", authz -> {
+      ctx.user().isAuthorised("booster-admin", authz -> {
         if (authz.succeeded() && authz.result()) {
           ctx.next();
         } else {
