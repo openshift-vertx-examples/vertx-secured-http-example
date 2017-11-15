@@ -42,7 +42,7 @@ public class SecuredBoosterIT {
   private Vertx vertx;
   private static String ssoEndpoint;
   private static String boosterEndpoint;
-  private static final String APPLICATION_NAME = System.getProperty("application.name");
+  private static final String APPLICATION_NAME = System.getProperty("application.name","secured-vertx-http");
 
   @BeforeClass
   public static void init() throws IOException, InterruptedException {
