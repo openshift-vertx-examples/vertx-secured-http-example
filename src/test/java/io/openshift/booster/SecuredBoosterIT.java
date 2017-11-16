@@ -42,6 +42,7 @@ public class SecuredBoosterIT {
   private Vertx vertx;
   private static String ssoEndpoint;
   private static String boosterEndpoint;
+  private static final String APPLICATION_NAME = System.getProperty("application.name","secured-vertx-http");
 
   @BeforeClass
   public static void init() throws IOException, InterruptedException {
@@ -58,7 +59,7 @@ public class SecuredBoosterIT {
         ssoEndpoint = tokens[1];
         continue;
       }
-      if ("secured-vertx-http".equals(tokens[0])) {
+      if (APPLICATION_NAME.equals(tokens[0])) {
         boosterEndpoint = tokens[1];
       }
     }
