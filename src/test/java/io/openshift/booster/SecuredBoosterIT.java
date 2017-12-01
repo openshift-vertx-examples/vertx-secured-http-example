@@ -45,7 +45,7 @@ public class SecuredBoosterIT {
   private static String ssoEndpoint;
 
   @BeforeClass
-  public static void init() throws Exception {
+  public static void init() {
     COMMAND_EXECUTOR.execCommand("oc create -f service.sso.yaml");
     ssoEndpoint = COMMAND_EXECUTOR
       .execCommand("oc get route secure-sso -o jsonpath='{\"https://\"}{.spec.host}{\"/auth\"}'")
