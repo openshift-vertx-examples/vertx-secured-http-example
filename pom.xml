@@ -107,6 +107,18 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <!--
+      TODO Delete this when the Arq Cube 1.9.3 is released and booster parent updated,
+      TODO now only works with Arq Cube built locally
+      -->
+      <dependency>
+        <groupId>org.arquillian.cube</groupId>
+        <artifactId>arquillian-cube-bom</artifactId>
+        <version>1.9.3-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -153,6 +165,25 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <version>1.1.12.Final</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-openshift</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>io.undertow</groupId>
+          <artifactId>undertow-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -198,7 +229,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <systemPropertyVariables>
-                <application.name>${project.artifactId}</application.name>
+                <app.name>${project.artifactId}</app.name>
               </systemPropertyVariables>
             </configuration>
             <executions>
