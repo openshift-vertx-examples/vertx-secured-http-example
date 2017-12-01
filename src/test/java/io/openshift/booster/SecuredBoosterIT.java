@@ -52,9 +52,10 @@ public class SecuredBoosterIT {
       .get(0)
       .replace("'", ""); // for some reason, the string contains a single ' before the URL
 
-    // Await the sso server to be ready so we can make token requests.
-    // When making requests too early (the sso server is not ready yet), it throws SSLHandshakeException,
-    // so we are taking care of that in the try-catch here
+    /* Await the sso server to be ready so we can make token requests. We cannot use @AwaitRoute as we are deploying
+    the sso server as part of the tests.
+    When making requests too early (the sso server is not ready yet), it throws SSLHandshakeException,
+    so we are taking care of that in the try-catch here. */
     await().atMost(5, TimeUnit.MINUTES).until(() -> {
       try {
         return given().relaxedHTTPSValidation().when().get(ssoEndpoint).statusCode() == 200;
