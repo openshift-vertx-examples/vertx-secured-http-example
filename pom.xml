@@ -107,18 +107,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
-      <!--
-      TODO Delete this when the Arq Cube 1.9.3 is released and booster parent updated,
-      TODO now only works with Arq Cube built locally
-      -->
-      <dependency>
-        <groupId>org.arquillian.cube</groupId>
-        <artifactId>arquillian-cube-bom</artifactId>
-        <version>1.9.3-SNAPSHOT</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
