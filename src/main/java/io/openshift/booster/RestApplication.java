@@ -16,16 +16,17 @@
  */
 package io.openshift.booster;
 
+import io.openshift.booster.service.Greeting;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.auth.jwt.JWTAuth;
+import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 import io.vertx.ext.web.handler.StaticHandler;
-import io.openshift.booster.service.Greeting;
 
 import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
 
@@ -35,7 +36,7 @@ public class RestApplication extends AbstractVerticle {
   private long counter;
 
   @Override
-  public void start(Future done) {
+  public void start(Future<Void> done) {
     // Create a router object.
     Router router = Router.router(vertx);
     router.get("/health").handler(rc -> rc.response().end("OK"));
@@ -52,19 +53,18 @@ public class RestApplication extends AbstractVerticle {
       .put("permissionsClaimKey", "realm_access/roles");
 
     // Configure the AuthHandler to process JWT's
-    router.route("/greeting").handler(JWTAuthHandler.create(JWTAuth.create(vertx, config)));
+    router.route("/greeting").handler(JWTAuthHandler.create(JWTAuth.create(vertx, new JWTAuthOptions(config))));
 
     // This is how one can do RBAC, e.g.: only admin is allowed
-    router.get("/greeting").handler(ctx -> {
-      ctx.user().isAuthorised("booster-admin", authz -> {
+    router.get("/greeting").handler(ctx ->
+      ctx.user().isAuthorized("booster-admin", authz -> {
         if (authz.succeeded() && authz.result()) {
           ctx.next();
         } else {
           log.error("AuthZ failed!");
           ctx.fail(403);
         }
-      });
-    });
+      }));
 
     router.get("/greeting").handler(ctx -> {
       String name = ctx.request().getParam("name");
@@ -78,11 +78,10 @@ public class RestApplication extends AbstractVerticle {
 
     // serve the dynamic config so the web client
     // can also connect to the SSO server
-    router.get("/keycloak.json").handler(ctx -> {
+    router.get("/keycloak.json").handler(ctx ->
       ctx.response()
         .putHeader(CONTENT_TYPE, "application/json; charset=utf-8")
-        .end(config.encode());
-    });
+        .end(config.encode()));
 
     // serve static files (web client)
     router.get().handler(StaticHandler.create());
@@ -95,6 +94,6 @@ public class RestApplication extends AbstractVerticle {
         // Retrieve the port from the configuration,
         // default to 8080.
         config().getInteger("http.port", 8080),
-        done.completer());
+        ar -> done.handle(ar.mapEmpty()));
   }
 }
