@@ -22,6 +22,7 @@ import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.web.Router;
@@ -41,19 +42,22 @@ public class RestApplication extends AbstractVerticle {
     Router router = Router.router(vertx);
     router.get("/health").handler(rc -> rc.response().end("OK"));
 
-    JsonObject config = new JsonObject()
+    JsonObject keycloakJson = new JsonObject()
       .put("realm", System.getenv("REALM"))
-      .put("public-key", System.getenv("REALM_PUBLIC_KEY"))
       .put("auth-server-url", System.getenv("SSO_AUTH_SERVER_URL"))
       .put("ssl-required", "external")
       .put("resource", System.getenv("CLIENT_ID"))
       .put("credentials", new JsonObject()
-        .put("secret", System.getenv("SECRET")))
-      // since we're consuming keycloak JWTs we need to locate the permission claims in the token
-      .put("permissionsClaimKey", "realm_access/roles");
+        .put("secret", System.getenv("SECRET")));
 
     // Configure the AuthHandler to process JWT's
-    router.route("/greeting").handler(JWTAuthHandler.create(JWTAuth.create(vertx, new JWTAuthOptions(config))));
+    router.route("/greeting").handler(JWTAuthHandler.create(
+      JWTAuth.create(vertx, new JWTAuthOptions()
+        .addPubSecKey(new PubSecKeyOptions()
+          .setType("RS256")
+          .setPublicKey(System.getenv("REALM_PUBLIC_KEY")))
+        // since we're consuming keycloak JWTs we need to locate the permission claims in the token
+        .setPermissionsClaimKey("realm_access/roles"))));
 
     // This is how one can do RBAC, e.g.: only admin is allowed
     router.get("/greeting").handler(ctx ->
@@ -81,7 +85,7 @@ public class RestApplication extends AbstractVerticle {
     router.get("/keycloak.json").handler(ctx ->
       ctx.response()
         .putHeader(CONTENT_TYPE, "application/json; charset=utf-8")
-        .end(config.encode()));
+        .end(keycloakJson.encode()));
 
     // serve static files (web client)
     router.get().handler(StaticHandler.create());
