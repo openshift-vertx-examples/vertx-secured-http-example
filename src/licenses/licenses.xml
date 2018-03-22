@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.9.0</version>
+            <version>2.9.3</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.0</version>
+            <version>2.9.3</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -235,7 +235,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-buffer</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -246,7 +246,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -257,7 +257,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-dns</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -268,7 +268,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -279,7 +279,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http2</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -290,7 +290,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-socks</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -301,7 +301,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-common</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -312,7 +312,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -323,7 +323,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler-proxy</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -334,7 +334,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -345,7 +345,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -356,7 +356,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport</artifactId>
-            <version>4.1.15.Final</version>
+            <version>4.1.19.Final</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -411,7 +411,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-auth-common</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -426,7 +426,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-auth-jwt</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -441,7 +441,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-bridge-common</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -456,22 +456,22 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
                     <url>http://www.apache.org/licenses/LICENSE-2.0</url>
                 </license>
                 <license>
-                    <name>Eclipse Public License, Version 1.0</name>
-                    <url>http://repository.jboss.org/licenses/epl-1.0.txt</url>
+                    <name>Eclipse Public License - v 2.0</name>
+                    <url>http://www.eclipse.org/legal/epl-v20.html</url>
                 </license>
             </licenses>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-jwt</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -486,7 +486,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-unit</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
@@ -501,7 +501,7 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-web</artifactId>
-            <version>3.5.0</version>
+            <version>3.5.1</version>
             <licenses>
                 <license>
                     <name>Apache License 2.0</name>
