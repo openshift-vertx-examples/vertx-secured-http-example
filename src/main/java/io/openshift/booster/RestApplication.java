@@ -54,7 +54,7 @@ public class RestApplication extends AbstractVerticle {
     router.route("/greeting").handler(JWTAuthHandler.create(
       JWTAuth.create(vertx, new JWTAuthOptions()
         .addPubSecKey(new PubSecKeyOptions()
-          .setType("RS256")
+          .setAlgorithm("RS256")
           .setPublicKey(System.getenv("REALM_PUBLIC_KEY")))
         // since we're consuming keycloak JWTs we need to locate the permission claims in the token
         .setPermissionsClaimKey("realm_access/roles"))));
