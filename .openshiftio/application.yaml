@@ -58,7 +58,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: openshift/secured-vertx-http:latest
+        name: secured-vertx-http:latest
     postCommit: {}
     resources: {}
     source:
