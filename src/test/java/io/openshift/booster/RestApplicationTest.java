@@ -57,6 +57,7 @@ public class RestApplicationTest {
   public void callGreetingTest(TestContext context) {
     // Send a request and get a response
     Async async = context.async();
+    // This get method is deprecated due to v4 incompatibility
     client.get(PORT, "localhost", "/greeting", resp -> {
       assertThat(resp.statusCode()).isEqualTo(401);
       async.complete();
@@ -69,6 +70,7 @@ public class RestApplicationTest {
   public void callGreetingWithParamTest(TestContext context) {
     // Send a request and get a response
     Async async = context.async();
+    // This get method is deprecated due to v4 incompatibility
     client.get(PORT, "localhost", "/greeting?name=Charles", resp -> {
       assertThat(resp.statusCode()).isEqualTo(401);
       async.complete();
