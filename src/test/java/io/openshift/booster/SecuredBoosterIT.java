@@ -49,7 +49,10 @@ public class SecuredBoosterIT {
     // You can disable the sso server initialization by setting the system property skip.sso.init to true
     if (!Boolean.getBoolean("skip.sso.init")) {
       // Remove service account
-      COMMAND_EXECUTOR.execCommand("oc delete sa sso-service-account");
+
+      try {COMMAND_EXECUTOR.execCommand("oc delete sa sso-service-account");}
+      catch(Exception ignore) {}
+      
       COMMAND_EXECUTOR.execCommand("oc create -f service.sso.yaml");
     }
     ssoEndpoint = COMMAND_EXECUTOR
