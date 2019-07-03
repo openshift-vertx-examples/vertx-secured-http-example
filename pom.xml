@@ -20,7 +20,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.openshift.booster</groupId>
+  <groupId>io.openshift.example</groupId>
   <artifactId>secured-vertx-http</artifactId>
   <packaging>jar</packaging>
   <version>27-SNAPSHOT</version>
@@ -32,7 +32,7 @@
     <vertx.version>3.7.1</vertx.version>
     <slf4j.version>1.7.26</slf4j.version>
     <vertx-maven-plugin.version>1.0.18</vertx-maven-plugin.version>
-    <vertx.verticle>io.openshift.booster.RestApplication</vertx.verticle>
+    <vertx.verticle>io.openshift.example.RestApplication</vertx.verticle>
 
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
