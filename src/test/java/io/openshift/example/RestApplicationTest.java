@@ -18,8 +18,10 @@ package io.openshift.example;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpClient;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
@@ -28,24 +30,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @RunWith(VertxUnitRunner.class)
 public class RestApplicationTest {
 
   private final static int PORT = 8081;
   private Vertx vertx;
-  private HttpClient client;
+  private WebClient client;
 
   @Before
   public void before(TestContext context) {
     vertx = Vertx.vertx();
     vertx.exceptionHandler(context.exceptionHandler());
     vertx.deployVerticle(RestApplication.class.getName(),
-      new DeploymentOptions().setConfig(new JsonObject().put("http.port", PORT)),
-      context.asyncAssertSuccess());
-    client = vertx.createHttpClient();
-  }
+        new DeploymentOptions().setConfig(new JsonObject().put("http.port", PORT)), context.asyncAssertSuccess());
+      client = WebClient.create(vertx);
+    }
 
   @After
   public void after(TestContext context) {
@@ -57,26 +56,32 @@ public class RestApplicationTest {
   public void callGreetingTest(TestContext context) {
     // Send a request and get a response
     Async async = context.async();
-    // This get method is deprecated due to v4 incompatibility
-    client.get(PORT, "localhost", "/greeting", resp -> {
-      assertThat(resp.statusCode()).isEqualTo(401);
-      async.complete();
-    })
-      .exceptionHandler(context::fail)
-      .end();
+    client.get(PORT, "localhost", "/greeting")
+     .send( ar -> {
+        if (ar.failed()) {
+          context.fail(ar.cause());
+        } else {
+          HttpResponse<Buffer> response = ar.result();
+          context.assertEquals(401, response.statusCode());
+          async.complete();
+        }
+    });
   }
 
   @Test
   public void callGreetingWithParamTest(TestContext context) {
     // Send a request and get a response
     Async async = context.async();
-    // This get method is deprecated due to v4 incompatibility
-    client.get(PORT, "localhost", "/greeting?name=Charles", resp -> {
-      assertThat(resp.statusCode()).isEqualTo(401);
-      async.complete();
-    })
-      .exceptionHandler(context::fail)
-      .end();
+    client.get(PORT, "localhost", "/greeting?name=Charles")
+     .send( ar -> {
+        if (ar.failed()) {
+          context.fail(ar.cause());
+        } else {
+          HttpResponse<Buffer> response = ar.result();
+          context.assertEquals(401, response.statusCode());
+          async.complete();
+        }
+    });
   }
 
 }
