@@ -27,6 +27,11 @@ items:
     labels:
       application: sso
       component: server
+      app.kubernetes.io/part-of: secured-http-example
+      app.kubernetes.io/name: secured-sso
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: sso
+      app.kubernetes.io/runtime-version: "7.3"
   spec:
     ports:
     - port: 8443
@@ -40,6 +45,11 @@ items:
     labels:
       application: sso
       component: server
+      app.kubernetes.io/part-of: secured-http-example
+      app.kubernetes.io/name: secured-sso
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: sso
+      app.kubernetes.io/runtime-version: "7.3"
   spec:
     ports:
     - port: 8080
@@ -53,6 +63,11 @@ items:
     labels:
       application: sso
       component: server
+      app.kubernetes.io/part-of: secured-http-example
+      app.kubernetes.io/name: secured-sso
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: sso
+      app.kubernetes.io/runtime-version: "7.3"
   spec:
     strategy:
       type: Rolling
@@ -168,6 +183,11 @@ items:
     labels:
       application: sso
       component: server
+      app.kubernetes.io/part-of: secured-http-example
+      app.kubernetes.io/name: secured-sso
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: sso
+      app.kubernetes.io/runtime-version: "7.3"
   spec:
     to:
       kind: Service
@@ -181,6 +201,11 @@ items:
     labels:
       application: sso
       component: server
+      app.kubernetes.io/part-of: secured-http-example
+      app.kubernetes.io/name: secured-sso
+      app.kubernetes.io/component: backend
+      app.kubernetes.io/runtime: sso
+      app.kubernetes.io/runtime-version: "7.3"
   spec:
     to:
       kind: Service
