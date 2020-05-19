@@ -253,11 +253,11 @@
                       <value>frontend</value>
                     </property>
                     <property>
-                      <name>app.kubernetes.io/runtime</name>
+                      <name>app.openshift.io/runtim</name>
                       <value>vertx</value>
                     </property>
                     <property>
-                      <name>app.kubernetes.io/runtime-version</name>
+                      <name>app.openshift.io/runtim-version</name>
                       <value>${vertx.version}</value>
                     </property>
                   </all>

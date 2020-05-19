@@ -30,8 +30,8 @@ items:
       app.kubernetes.io/part-of: secured-http-example
       app.kubernetes.io/name: secured-sso
       app.kubernetes.io/component: backend
-      app.kubernetes.io/runtime: sso
-      app.kubernetes.io/runtime-version: "7.3"
+      app.openshift.io/runtim: sso
+      app.openshift.io/runtim-version: "7.3"
   spec:
     ports:
     - port: 8443
@@ -48,8 +48,8 @@ items:
       app.kubernetes.io/part-of: secured-http-example
       app.kubernetes.io/name: secured-sso
       app.kubernetes.io/component: backend
-      app.kubernetes.io/runtime: sso
-      app.kubernetes.io/runtime-version: "7.3"
+      app.openshift.io/runtim: sso
+      app.openshift.io/runtim-version: "7.3"
   spec:
     ports:
     - port: 8080
@@ -66,8 +66,8 @@ items:
       app.kubernetes.io/part-of: secured-http-example
       app.kubernetes.io/name: secured-sso
       app.kubernetes.io/component: backend
-      app.kubernetes.io/runtime: sso
-      app.kubernetes.io/runtime-version: "7.3"
+      app.openshift.io/runtim: sso
+      app.openshift.io/runtim-version: "7.3"
   spec:
     strategy:
       type: Rolling
@@ -186,8 +186,8 @@ items:
       app.kubernetes.io/part-of: secured-http-example
       app.kubernetes.io/name: secured-sso
       app.kubernetes.io/component: backend
-      app.kubernetes.io/runtime: sso
-      app.kubernetes.io/runtime-version: "7.3"
+      app.openshift.io/runtim: sso
+      app.openshift.io/runtim-version: "7.3"
   spec:
     to:
       kind: Service
@@ -204,8 +204,8 @@ items:
       app.kubernetes.io/part-of: secured-http-example
       app.kubernetes.io/name: secured-sso
       app.kubernetes.io/component: backend
-      app.kubernetes.io/runtime: sso
-      app.kubernetes.io/runtime-version: "7.3"
+      app.openshift.io/runtim: sso
+      app.openshift.io/runtim-version: "7.3"
   spec:
     to:
       kind: Service
