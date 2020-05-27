@@ -23,13 +23,13 @@
   <groupId>io.openshift.example</groupId>
   <artifactId>secured-vertx-http</artifactId>
   <packaging>jar</packaging>
-  <version>31-SNAPSHOT</version>
+  <version>32-SNAPSHOT</version>
 
   <name>Vert.x - Secured HTTP endpoint</name>
   <description>Secured Vertx - HTTP &amp; Red Hat SSO</description>
 
   <properties>
-    <vertx.version>3.9.0</vertx.version>
+    <vertx.version>3.9.1</vertx.version>
     <slf4j.version>1.7.30</slf4j.version>
     <vertx-maven-plugin.version>1.0.22</vertx-maven-plugin.version>
     <vertx.verticle>io.openshift.example.RestApplication</vertx.verticle>
@@ -179,7 +179,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.15.0</version>
+      <version>3.16.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -191,7 +191,7 @@
     <dependency>
       <groupId>org.awaitility</groupId>
       <artifactId>awaitility</artifactId>
-      <version>4.0.2</version>
+      <version>4.0.3</version>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
