@@ -52,7 +52,7 @@ public class SecuredBoosterIT {
 
       try {COMMAND_EXECUTOR.execCommand("oc delete sa sso-service-account");}
       catch(Exception ignore) {}
-      
+
       COMMAND_EXECUTOR.execCommand("oc create -f service.sso.yaml");
     }
     ssoEndpoint = COMMAND_EXECUTOR
@@ -136,7 +136,7 @@ public class SecuredBoosterIT {
       .relaxedHTTPSValidation()
       .params(requestParams)
       .when()
-      .post(ssoEndpoint + "/realms/master/protocol/openid-connect/token")
+      .post(ssoEndpoint + "/realms/demo/protocol/openid-connect/token")
       .path("access_token");
   }
 }
