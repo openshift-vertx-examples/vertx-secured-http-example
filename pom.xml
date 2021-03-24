@@ -29,7 +29,7 @@
   <description>Secured Vertx - HTTP &amp; Red Hat SSO</description>
 
   <properties>
-    <vertx.version>3.9.1</vertx.version>
+    <vertx.version>3.9.6</vertx.version>
     <slf4j.version>1.7.30</slf4j.version>
     <vertx-maven-plugin.version>1.0.22</vertx-maven-plugin.version>
     <vertx.verticle>io.openshift.example.RestApplication</vertx.verticle>
@@ -186,7 +186,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
